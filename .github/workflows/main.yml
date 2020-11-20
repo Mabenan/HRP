@@ -30,7 +30,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: HRPServer
-        path: bin\Release\netcoreapp3.1\HRPServer.exe
+        path: HRPServer/bin/Release/netcoreapp3.1/HRPServer.exe
   UWP:
     runs-on: windows-latest
     steps:
@@ -45,11 +45,11 @@ jobs:
         cd bin\x86
     - uses: montudor/action-zip@v0.1.1
       with:
-        args: zip -qq -r HRP.zip Release
+        args: zip -qq -r HRP/HRP.UWP/bin/x86/HRP.zip HRP/HRP.UWP/bin/x86/Release
     - uses: actions/upload-artifact@master
       with:
         name: HRP
-        path: Release.zip
+        path: HRP/HRP.UWP/bin/x86/Release.zip
         
   Android:
     runs-on: macos-latest
@@ -63,10 +63,10 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: APK-sig
-        path: bin/Release/com.companyname.hrp-Signed.apk
+        path:  HRP/HRP.Android/bin/Release/com.companyname.hrp-Signed.apk
     - uses: actions/upload-artifact@master
       with:
         name: APK
-        path: bin/Release/com.companyname.hrp.apk
+        path:  HRP/HRP.Android/bin/Release/com.companyname.hrp.apk
         
         
