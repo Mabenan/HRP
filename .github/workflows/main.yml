@@ -19,6 +19,8 @@ jobs:
   Server:
     runs-on: windows-latest
     steps:
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
     - uses: actions/checkout@v1
     - name: Server
       run: |
@@ -27,6 +29,8 @@ jobs:
   UWP:
     runs-on: windows-latest
     steps:
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
     - uses: actions/checkout@v1
     - name: UWP
       run: |
@@ -43,12 +47,3 @@ jobs:
         nuget restore
         cd HRP/HRP.Android
         msbuild HRP.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
-        
-  iOS:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: iOS
-      run: |
-        nuget restore
-        msbuild HRP/HRP.iOS/HRP.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
