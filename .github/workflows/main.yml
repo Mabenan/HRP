@@ -25,6 +25,7 @@ jobs:
     - name: Server
       run: |
         nuget restore
+        cd HRPServer
         msbuild HRPServer.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
   UWP:
     runs-on: windows-latest
