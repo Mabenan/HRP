@@ -27,10 +27,14 @@ jobs:
         nuget restore
         cd HRPServer
         msbuild HRPServer.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+    - uses: papeloto/action-zip@v1
+      with:
+        files: HRPServer/bin/Release/netcoreapp3.1/
+        dest: HRPServer.zip
     - uses: actions/upload-artifact@master
       with:
         name: HRPServer
-        path: HRPServer/bin/Release/netcoreapp3.1/HRPServer.exe
+        path: HRPServer.zip
   UWP:
     runs-on: windows-latest
     steps:
@@ -43,13 +47,14 @@ jobs:
         cd HRP/HRP.UWP
         msbuild HRP.UWP.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
         cd bin\x86
-    - uses: montudor/action-zip@v0.1.1
+    - uses: papeloto/action-zip@v1
       with:
-        args: zip -qq -r HRP/HRP.UWP/bin/x86/HRP.zip HRP/HRP.UWP/bin/x86/Release
+        files: HRP/HRP.UWP/bin/x86/Release
+        dest: HRP.zip 
     - uses: actions/upload-artifact@master
       with:
         name: HRP
-        path: HRP/HRP.UWP/bin/x86/Release.zip
+        path: HRP.zip
         
   Android:
     runs-on: macos-latest
