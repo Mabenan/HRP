@@ -41,11 +41,14 @@ jobs:
       run: |
         nuget restore
         msbuild HRP/HRP.UWP/HRP.UWP.csproj /p:AppxBundlePlatforms="x64|x86" /p:AppxPackageDir="HRP/HRP.UWP/bin/x64" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload
-        cd bin\x86
     - uses: actions/upload-artifact@master
       with:
-        name: HRP
+        name: HRPx64
         path:  HRP/HRP.UWP/bin/x64
+    - uses: actions/upload-artifact@master
+      with:
+        name: HRPx86
+        path:  HRP/HRP.UWP/bin/x86
         
   Android:
     runs-on: macos-latest
