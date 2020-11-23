@@ -57,11 +57,7 @@ jobs:
         msbuild HRP/HRP.Android/HRP.Android.csproj /p:AndroidBuildApplicationPackage=True /verbosity:normal /t:Rebuild /p:Configuration=Release
     - uses: actions/upload-artifact@master
       with:
-        name: HRP.APK-sig
-        path:  HRP/HRP.Android/bin/Release/de.mabenan.hrp-Signed.apk
-    - uses: actions/upload-artifact@master
-      with:
         name: HRP.APK
-        path:  HRP/HRP.Android/bin/Release/de.mabenan.hrp.apk
+        path:  HRP/HRP.Android/bin/Release/
         
         
