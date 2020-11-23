@@ -40,15 +40,12 @@ jobs:
     - name: UWP
       run: |
         nuget restore
-        msbuild HRP/HRP.UWP/HRP.UWP.csproj /p:AppxBundlePlatforms="x64|x86" /p:AppxPackageDir="HRP/HRP.UWP/bin/x64" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload
+        msbuild HRP/HRP.UWP/HRP.UWP.csproj /p:AppxBundlePlatforms="x64|x86" /p:AppxPackageDir="AppPackage" /p:Configuration=Release /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:PackageCertificateKeyFile=HRP.UWP_TemporaryKey.pfx /p:PackageCertificatePassword=${{secrets.Pfx_Key}}
     - uses: actions/upload-artifact@master
       with:
-        name: HRPx64
-        path:  HRP/HRP.UWP/bin/x64
-    - uses: actions/upload-artifact@master
-      with:
-        name: HRPx86
-        path:  HRP/HRP.UWP/bin/x86
+        name: HRP.UWP
+        path:  HRP/HRP.UWP/AppPackage/HRP.UWP_1.0.0.0_Debug_Test
+
         
   Android:
     runs-on: macos-latest
@@ -57,15 +54,14 @@ jobs:
     - name: Android
       run: |
         nuget restore
-        cd HRP/HRP.Android
-        msbuild HRP.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
+        msbuild HRP/HRP.Android/HRP.Android.csproj /p:AndroidBuildApplicationPackage=True /verbosity:normal /t:Rebuild /p:Configuration=Release
     - uses: actions/upload-artifact@master
       with:
-        name: APK-sig
-        path:  HRP/HRP.Android/bin/Release/com.companyname.hrp-Signed.apk
+        name: HRP.APK-sig
+        path:  HRP/HRP.Android/bin/Release/de.mabenan.hrp-Signed.apk
     - uses: actions/upload-artifact@master
       with:
-        name: APK
-        path:  HRP/HRP.Android/bin/Release/com.companyname.hrp.apk
+        name: HRP.APK
+        path:  HRP/HRP.Android/bin/Release/de.mabenan.hrp.apk
         
         

@@ -8,13 +8,13 @@
 
   <Identity
     Name="1531cc4a-2792-4f74-a0b9-ec67287bd1f5"
-    Publisher="CN=e88a50b8-39f7-42a5-8f64-243d3f9a49ad"
+    Publisher="CN=Mabenan"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>HRP.UWP</DisplayName>
+    <DisplayName>HRP</DisplayName>
     <PublisherDisplayName>e88a50b8-39f7-42a5-8f64-243d3f9a49ad</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,10 +32,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="HRP.UWP.App">
       <uap:VisualElements
-        DisplayName="HRP.UWP"
+        DisplayName="HRP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="HRP.UWP"
+        Description="Home Resource Planning"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>

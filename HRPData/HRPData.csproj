@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Company>Mabenan</Company>
   </PropertyGroup>
 
   <ItemGroup>
