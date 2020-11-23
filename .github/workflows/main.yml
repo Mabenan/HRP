@@ -44,7 +44,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: HRP.UWP
-        path:  HRP/HRP.UWP/AppPackage/HRP.UWP_1.0.0.0_Debug_Test
+        path:  HRP/HRP.UWP/AppPackage/HRP.UWP_1.0.0.0_Test
 
         
   Android:
