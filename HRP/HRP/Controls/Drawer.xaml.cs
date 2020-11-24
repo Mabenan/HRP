@@ -13,6 +13,11 @@ namespace HRP.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Drawer : ContentPage
     {
+
+        public delegate void OnItemTappedDelegate(ItemTappedEventArgs e);
+
+        public OnItemTappedDelegate OnItemTapped { get; set; }
+
         public Drawer()
         {
             InitializeComponent();
@@ -21,6 +26,14 @@ namespace HRP.Controls
         internal void SetItems(List<DrawerItem> masterPageItems)
         {
             this.listView.ItemsSource = masterPageItems;
+        }
+
+        private void listView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (OnItemTapped != null)
+            {
+                OnItemTapped.Invoke(e);
+            }
         }
     }
 }

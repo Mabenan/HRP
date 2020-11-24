@@ -1,4 +1,5 @@
-﻿using HRP.Structs;
+﻿using HRP.Sites;
+using HRP.Structs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,21 +18,15 @@ namespace HRP.Controller
             masterPageItems = new List<DrawerItem>();
             masterPageItems.Add(new DrawerItem
             {
-                Title = "Contacts",
-                IconSource = "contacts.png",
-                //TargetType = typeof(ContactsPageCS)
+                Title = "Dashboard",
+                //IconSource = "contacts.png",
+                TargetType = typeof(Dashboard)
             });
             masterPageItems.Add(new DrawerItem
             {
-                Title = "TodoList",
-                IconSource = "todo.png",
-                //TargetType = typeof(TodoListPageCS)
-            });
-            masterPageItems.Add(new DrawerItem
-            {
-                Title = "Reminders",
-                IconSource = "reminders.png",
-                //TargetType = typeof(ReminderPageCS)
+                Title = "EditableProducts",
+                //IconSource = "contacts.png",
+                TargetType = typeof(EditableProductsEdit)
             });
         }
     }

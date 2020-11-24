@@ -5,7 +5,8 @@
                   xmlns:sites="clr-namespace:HRP.Sites"
              x:Class="HRP.MainPage"
                   Title="Home Resource Planning"
-                  MasterBehavior="Popover">
+                  MasterBehavior="Popover"
+             Visual="Material">
     <MasterDetailPage.Master>
         <controls:Drawer x:Name="masterPage" />
     </MasterDetailPage.Master>

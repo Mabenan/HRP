@@ -6,7 +6,7 @@
              Title="Menu">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="listView">
+            <ListView x:Name="listView" ItemTapped="listView_ItemTapped" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

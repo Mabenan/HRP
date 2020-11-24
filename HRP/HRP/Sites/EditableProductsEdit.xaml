@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HRP.Sites.EditableProductsEdit"
+             xmlns:data="clr-namespace:HRPData.Entity;assembly=HRPData"
+             xmlns:controls="clr-namespace:HRP.Controls"
+             Visual="Material">
+    <ContentPage.Content>
+        <controls:EditTable TypeToDisplay="{x:Type data:BaseProduct}">
+        </controls:EditTable>
+    </ContentPage.Content>
+</ContentPage>
