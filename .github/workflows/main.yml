@@ -34,8 +34,6 @@ jobs:
   ServerLinux:
     runs-on: ubuntu-latest
     steps:
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
