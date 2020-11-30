@@ -46,6 +46,7 @@ jobs:
       run: |
         nuget restore
         cd HRPServer
+        dotnet restore 
         dotnet msbuild HRPServer.csproj /verbosity:normal /p:TargetFramework=netcoreapp3.1 /t:Rebuild  /t:CreateDeb /p:RuntimeIdentifier=ubuntu.16.04-x64 /p:Configuration=Release
     - uses: actions/upload-artifact@master
       with:
