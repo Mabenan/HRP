@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.0.5.6
+//     Produced by Entity Framework Visual Editor v3.0.0.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -22,12 +22,13 @@ using Microsoft.EntityFrameworkCore;
 namespace HRPData.Context
 {
    /// <inheritdoc/>
-   public partial class HRPModel : DbContext
+   public partial class HRPModel : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext<HRPData.Entity.HRPUser>
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::HRPData.Entity.BaseProduct> BaseProducts { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::HRPData.Entity.EatableProduct> EatableProducts { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::HRPData.Entity.NonEatableProduct> NonEatableProducts { get; set; }
+
       #endregion DbSets
 
       /// <inheritdoc />

@@ -17,6 +17,14 @@ using OdataToEntity.EfCore;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using OdataToEntity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using HRPServer.Controller;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 
 namespace HRPServer
 {
@@ -30,13 +38,43 @@ namespace HRPServer
             services.AddOData();
             services.AddDbContext<HRPModel>(opt =>
             {
-                opt.UseInMemoryDatabase("hrp");
+                var connection = new SqliteConnection("Filename=HRPServer.db");
+
+                connection.Open();
+                opt.UseSqlite(connection, b =>
+                {
+                    b.MigrationsAssembly("HRPServer");
+                });
+
+        });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddMvc().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }) .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                    options.Conventions.AddAreaPageRoute("Home", "/Index", "");
+                });
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+
 
         }
 
@@ -48,10 +86,20 @@ namespace HRPServer
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
+            app.UseStaticFiles();
+
+            app.UseCookiePolicy();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapODataRoute("odata", null, this.BuildEdm(app));
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapODataRoute("odata", "odata", this.BuildEdm(app));
             });
             app.UseODataBatching();
             
@@ -62,7 +110,18 @@ namespace HRPServer
             var optionsbuilder = new DbContextOptionsBuilder<HRPModel>();
             optionsbuilder.UseInMemoryDatabase("hrp");
             var dataAdapter = new OeEfCoreDataAdapter<HRPModel>(optionsbuilder.Options);
-            return dataAdapter.BuildEdmModel();
+            return dataAdapter.BuildEdmModel(new[] { 
+                typeof(HRPUser),
+                typeof(IdentityUser<string>),
+                typeof(IdentityUser),
+                typeof(IdentityUserRole<string>),
+                typeof(IdentityRole<string>),
+                typeof(IdentityRoleClaim<string>),
+                typeof(IdentityUserClaim<string>),
+                typeof(IdentityUserLogin<string>),
+                typeof(IdentityUserToken<string>),
+                typeof(IdentityRole)
+            });
             
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Simple.OData.Client;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace HRP.Controller
@@ -19,7 +20,15 @@ namespace HRP.Controller
 
         static DataProvider()
         {
-            _client = new ODataClient("http://localhost:5000/");
+        }
+
+        internal static void Init(string server, ICredentials credentials)
+        {
+            _client = new ODataClient(new ODataClientSettings()
+            {
+                BaseUri = new Uri(server),
+                Credentials = credentials
+            });
         }
     }
 }

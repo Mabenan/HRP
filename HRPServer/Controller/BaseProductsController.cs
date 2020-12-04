@@ -1,6 +1,7 @@
 ﻿using HRPData.Context;
 using HRPData.Entity;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HRPServer.Controller
 {
+    [Authorize]
     public class BaseProductsController : ODataController
     {
         private readonly HRPModel _model;

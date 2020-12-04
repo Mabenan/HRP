@@ -44,8 +44,14 @@ namespace OdataToEntity.ModelBuilder
                 else
                 {
                     key = ClrType.GetPropertyIgnoreCaseOrNull(ClrType.Name + "id");
+                    if(key == null)
+                    {
+                        key = ClrType.GetProperties().Where(prop => prop.Name == "UserId").First();
+                    }
                     if (key == null)
                     {
+                        //Special Handling IdentityUser
+
                         if (EdmType.Key().Any() || ClrType.IsAbstract)
                             return;
 

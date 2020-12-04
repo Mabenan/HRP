@@ -54,12 +54,12 @@ namespace OdataToEntity.ModelBuilder
 
             return edmAction;
         }
-        public EdmModel BuildEdmModel(params IEdmModel[] refModels)
+        public EdmModel BuildEdmModel(Type[] excludedTypes, params IEdmModel[] refModels)
         {
             AddOperations();
             var edmModel = new EdmModel(false);
 
-            Dictionary<Type, EntityTypeInfo> entityTypeInfos = BuildEntityTypes(refModels);
+            Dictionary<Type, EntityTypeInfo> entityTypeInfos = BuildEntityTypes(refModels, excludedTypes);
             foreach (EntityTypeInfo typeInfo in entityTypeInfos.Values)
                 if (!typeInfo.IsRefModel)
                     typeInfo.BuildStructuralProperties(edmModel, entityTypeInfos, _enumTypes, _complexTypes);
@@ -156,13 +156,18 @@ namespace OdataToEntity.ModelBuilder
 
             return edmModel;
         }
-        private Dictionary<Type, EntityTypeInfo> BuildEntityTypes(IEdmModel[] refModels)
+        private Dictionary<Type, EntityTypeInfo> BuildEntityTypes(IEdmModel[] refModels, Type[] excludedTypes)
         {
             var entityTypeInfos = new Dictionary<Type, EntityTypeInfo>();
+            List<Type> typesToExclude = new List<Type>(excludedTypes);
             foreach (Db.OeEntitySetAdapter entitySetAdapter in _dataAdapter.EntitySetAdapters)
             {
                 var baseClrTypes = new Stack<Type>();
                 Type clrType = entitySetAdapter.EntityType;
+                if (typesToExclude.Contains(clrType))
+                {
+                    continue;
+                }
                 do
                 {
                     baseClrTypes.Push(clrType);
